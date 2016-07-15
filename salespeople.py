@@ -14,7 +14,9 @@ class Salesperson(object):
         Uses the person's base salary and commissions.
         """
 
-        return self.base_salary / 12 + (self.commission_rate * total_sales)
+        commission = self.commission_rate * total_sales
+        monthly_salary = self.base_salary / 12
+        return monthly_salary + commission
 
 
 class InternSalesperson(Salesperson):

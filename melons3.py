@@ -1,10 +1,21 @@
 """This file should have our order classes in it."""
 import random
-import datetime 
+import datetime
+
+class TooManyMelonsError(ValueError):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)  
+            
+           
 class AbstractMelonOrder(object):
     
     def __init__(self, species, qty):
         self.species = species
+        if qty > 100:
+            raise TooManyMelonsError("Too many melons!")
+        
         self.qty = qty
         self.shipped = False
 
@@ -24,7 +35,14 @@ class AbstractMelonOrder(object):
 
     def get_base_price(self):
         """calculate random base price"""
+        order_time = datetime.datetime.now()
+        hour = order_time.hour
+        day = order_time.weekday()
+        
         base_price = random.randint(5, 10)
+
+        if hour >= 8 and hour <= 11 and day >= 0 and day <= 4:
+            base_price += 4
         return base_price
         
 
