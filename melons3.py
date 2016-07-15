@@ -1,5 +1,6 @@
 """This file should have our order classes in it."""
 import random
+import datetime 
 class AbstractMelonOrder(object):
     
     def __init__(self, species, qty):
@@ -8,6 +9,7 @@ class AbstractMelonOrder(object):
         self.shipped = False
 
     def get_total(self, tax):
+        """return the total amount"""
         base_price = self.get_base_price()
         if self.species.lower() == "christmas melon":
             base_price = base_price * 1.5
@@ -21,9 +23,11 @@ class AbstractMelonOrder(object):
         self.shipped = True
 
     def get_base_price(self):
+        """calculate random base price"""
         base_price = random.randint(5, 10)
         return base_price
         
+
 class DomesticMelonOrder(AbstractMelonOrder):
     """A domestic (in the US) melon order."""
 
@@ -61,7 +65,8 @@ class InternationalMelonOrder(AbstractMelonOrder):
         return self.country_code
 
 class GovernmentMelonOrder(AbstractMelonOrder):
-      
+    """A government melon order""" 
+
     def __init__(self, species, qty):
         self.passed_inspection = False
         super(GovernmentMelonOrder, self).__init__(species, qty)
